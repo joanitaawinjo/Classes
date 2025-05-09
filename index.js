@@ -41,6 +41,9 @@ switch (userRole) {
   default:
   console.log("Unknown user role");
 }
+user1 = new FeatureToggle("new dash board", "admin",["betatester","guest","admins"])
+console.log(user1.canAccess());
+// console.log(user1.toggleFeature());
 
 
 //In a freelancer time-tracking platform, create a TimeLog constructor function with properties: freelancerName (string), projectDetails (object with name and hourlyRate), 
@@ -75,6 +78,20 @@ function TimeLog(freelancerName, projectDetails, logs) {
     return false;
     }
   };
+
+  const logs = [
+    { date: "2025-05-01", hoursWorked: 10 },
+    { date: "2025-05-02", hoursWorked: 15 },
+    { date: "2025-05-03", hoursWorked: 20 }
+];
+
+const tracker = new TimeLog("Tyler", { name: "Website Redesign", hourlyRate: 50 }, logs);
+
+console.log("Total Earnings:", tracker.calculateTotalEarnings());
+console.log(tracker.filterLogsByDateRange(logs));
+console.log(tracker.checkWeeklyHoursExceed40());
+
+ 
   
 
 //You are developing a startup’s order management system where an Order constructor function 
@@ -88,7 +105,7 @@ function Order(customer, items, status) {
   
   Order.prototype.computeTotalCost = function() {
     let totalCost = 0;
-    this.items.forEach(item => {
+    this.items.forEach(item =>{
     totalCost += item.quantity * item.unitPrice;
     });
     return totalCost;
@@ -118,6 +135,17 @@ function Order(customer, items, status) {
     return "Unknown";
     }
   };
+  const order = new Order("Mary", "catlery", "paid");
+  const order2 = new Order("John", "books", ["Pending","Medium","Low"]);
+
+  console.log(order.computeTotalCost());
+  console.log(order.updateStatus());
+  console.log(order.categorizeUrgency());
+
+  console.log(order2.computeTotalCost());
+  console.log(order2.updateStatus());
+  console.log(order2.categorizeUrgency());
+  
     
 
 //In a startup’s employee review tool, design an Employee class with properties: 
