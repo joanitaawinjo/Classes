@@ -41,13 +41,6 @@ switch (userRole) {
   default:
   console.log("Unknown user role");
 }
-// canAccess("dash board", "admins");
-// canAccess("dash board", "betaTester");
-
-// toggleFeature("dash board", "admins");
-// toggleFeature("dash board", "betaTester");
-
-
 
 
 //In a freelancer time-tracking platform, create a TimeLog constructor function with properties: freelancerName (string), projectDetails (object with name and hourlyRate), 
@@ -82,6 +75,7 @@ function TimeLog(freelancerName, projectDetails, logs) {
     return false;
     }
   };
+  
 
 //You are developing a startup’s order management system where an Order constructor function 
 //should contain customer (object with name and email), items (array of objects with productName, quantity, and unitPrice), and status (string), 
@@ -124,6 +118,7 @@ function Order(customer, items, status) {
     return "Unknown";
     }
   };
+    
 
 //In a startup’s employee review tool, design an Employee class with properties: 
 //id (number), name (string), performanceMetrics (object with keys like communication, efficiency, and reliability), 
@@ -169,39 +164,3 @@ function Employee(id, name, performanceMetrics, feedback) {
 //title (string), instructor (object with name and expertise), and students (array of objects with name and completionStatus), 
 //then add prototype methods to return names of students who completed the course, count enrolled students by expertise area, 
 //and use control flow to output different messages for instructors with more or less than 5 students.
-function Employee(id, name, performanceMetrics, feedback) {
-    this.id = id;
-    this.name = name;
-    this.performanceMetrics = performanceMetrics;
-    this.feedback = feedback;
-  }
-  
-  Employee.prototype.calculateAverageScore = function() {
-    let totalScore = 0;
-    let metricCount = 0;
-    for (let metric in this.performanceMetrics) {
-    totalScore += this.performanceMetrics[metric];
-    metricCount++;
-    }
-    return totalScore / metricCount;
-  };
-  
-  Employee.prototype.classifyPerformance = function() {
-    let averageScore = this.calculateAverageScore();
-    if (averageScore >= 8) {
-    return "High performer";
-    } else if (averageScore >= 6) {
-    return "Average performer";
-    } else {
-    return "Low performer";
-    }
-  };
-  
-  Employee.prototype.addFeedback = function(newFeedback) {
-    if (newFeedback.length > 0) {
-    this.feedback.push(newFeedback);
-    } else {
-    console.log("Feedback cannot be empty");
-    }
-  };
-
