@@ -98,53 +98,50 @@ console.log(tracker.checkWeeklyHoursExceed40());
 //should contain customer (object with name and email), items (array of objects with productName, quantity, and unitPrice), and status (string), 
 //then implement prototype methods to compute total cost, update order status based on payment, and categorize order urgency using switch and conditional statements.
 function Order(customer, items, status) {
-    this.customer = customer;
-    this.items = items;
-    this.status = status;
-  }
-  
-  Order.prototype.computeTotalCost = function() {
-    let totalCost = 0;
-    this.items.forEach(item =>{
-    totalCost += item.quantity * item.unitPrice;
-    });
-    return totalCost;
-  };
-  
-  Order.prototype.updateStatus = function(paymentMade) {
-    if (paymentMade) {
-    this.status = "Paid";
-    } else {
-    this.status = "Pending";
-    }
-  };
-  
-  Order.prototype.categorizeUrgency = function() {
-    switch (this.status) {
-    case "Pending":
-    if (this.items.length > 5) {
-    return "High";
-    } else {
-    return "Medium";
-    }
-    break;
-    case "Paid":
-    return "Low";
-    break;
-    default:
-    return "Unknown";
-    }
-  };
-  const order = new Order("Mary", "catlery", "paid");
-  const order2 = new Order("John", "books", ["Pending","Medium","Low"]);
+  this.customer = customer;
+  this.items = items;
+  this.status = status;
+}
 
-  console.log(order.computeTotalCost());
+Order.prototype.calculateTotalCost = function() {
+  let totalCost = 0;
+  this.items.forEach(item => {
+  totalCost += item.quantity * item.unitPrice;
+  });
+  return totalCost;
+};
+
+Order.prototype.updateStatus = function(paymentStatus) {
+  if (paymentStatus === 'paid') {
+  this.status = 'paid';
+  } else {
+  this.status = 'unpaid';
+  }
+};
+
+Order.prototype.categorizeUrgency = function() {
+  switch (this.status) {
+  case 'paid':
+  return 'Low urgency';
+  case 'unpaid':
+  if (this.items.length > 0) {
+  return 'High urgency';
+  } else {
+  return 'Medium urgency';
+  }
+  default:
+  return 'Medium urgency';
+  }
+};
+
+  const order = new Order("Mary", "catlery", "paid");
+
+
+  // console.log(order.computeTotalCost());
   console.log(order.updateStatus());
   console.log(order.categorizeUrgency());
 
-  console.log(order2.computeTotalCost());
-  console.log(order2.updateStatus());
-  console.log(order2.categorizeUrgency());
+  
   
     
 
@@ -152,43 +149,35 @@ function Order(customer, items, status) {
 //id (number), name (string), performanceMetrics (object with keys like communication, efficiency, and reliability), 
 //and feedback (array of strings), then use prototypes to calculate an average score, classify performance level using control flow, 
 //and add new feedback based on conditions.
-function Employee(id, name, performanceMetrics, feedback) {
-    this.id = id;
-    this.name = name;
-    this.performanceMetrics = performanceMetrics;
-    this.feedback = feedback;
-  }
-  
-  Employee.prototype.calculateAverageScore = function() {
-    let totalScore = 0;
-    let metricCount = 0;
-    for (let metric in this.performanceMetrics) {
-    totalScore += this.performanceMetrics[metric];
-    metricCount++;
-    }
-    return totalScore / metricCount;
-  };
-  
-  Employee.prototype.classifyPerformance = function() {
-    let averageScore = this.calculateAverageScore();
-    if (averageScore >= 8) {
-    return "High performer";
-    } else if (averageScore >= 6) {
-    return "Average performer";
-    } else {
-    return "Low performer";
-    }
-  };
-  
-  Employee.prototype.addFeedback = function(newFeedback) {
-    if (newFeedback.length > 0) {
-    this.feedback.push(newFeedback);
-    } else {
-    console.log("Feedback cannot be empty");
-    }
-  };
 
-//Build a simple e-learning system where a Course class has properties: 
-//title (string), instructor (object with name and expertise), and students (array of objects with name and completionStatus), 
-//then add prototype methods to return names of students who completed the course, count enrolled students by expertise area, 
-//and use control flow to output different messages for instructors with more or less than 5 students.
+function Employee(id, name, performanceMetrics, feedback) {
+  this.id = id;
+  this.name = name;
+  this.performanceMetrics = performanceMetrics; 
+  this.feedback = feedback||[ ];
+}
+
+Employee.prototype.averageScore = function() {
+  const scores = Object.values(this.performanceMetrics);
+  return scores.reduce((a, b) => a + b) / scores.length;
+};
+
+Employee.prototype.classifyPerformance = function() {
+  const avg = this.averageScore();
+  if (avg >= 4.5) return "Excellent";
+  else if (avg >= 3) return "Good";
+  else return "Needs Improvement";
+};
+
+Employee.prototype.addFeedback = function(newFeedback){
+  if (newFeedback && newFeedback.length > 0) {
+      this.feedback.push(newFeedback);
+  } else {
+      console.log("Invalid feedback.");
+  }
+};
+const employee = new Employee("O02", "John", [20,40,50,60,70], "Needs improvement")
+console.log(employee.averageScore());
+console.log(employee.classifyPerformance());
+console.log(employee.addFeedback());
+
