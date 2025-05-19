@@ -64,7 +64,10 @@ function TimeLog(freelancerName, projectDetails, logs) {
   };
   
   TimeLog.prototype.filterLogsByDateRange = function(startDate, endDate) {
-    return this.logs.filter(log => log.date >= startDate && log.date <= endDate);
+    let arr = [];
+    this.logs.filter(log => log.date >= startDate && log.date <= endDate);
+    arr.push(logs);
+    return arr;
   };
   
   TimeLog.prototype.checkWeeklyHoursExceed40 = function() {
