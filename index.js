@@ -102,7 +102,6 @@ function Order(customer, items, status) {
   this.items = items;
   this.status = status;
 }
-
 Order.prototype.calculateTotalCost = function() {
   let totalCost = 0;
   this.items.forEach(item => {
@@ -134,13 +133,12 @@ Order.prototype.categorizeUrgency = function() {
   }
 };
 
-  const order = new Order("Mary", "catlery", "paid");
+const order = new Order("Mary", [{name: "cutlery", quantity: 1, unitPrice: 10}], "paid");
 
-
-  // console.log(order.computeTotalCost());
-  console.log(order.updateStatus());
-  console.log(order.categorizeUrgency());
-
+console.log(order.calculateTotalCost());
+order.updateStatus('paid');
+console.log(order.status);
+console.log(order.categorizeUrgency());
   
   
     
@@ -154,7 +152,7 @@ function Employee(id, name, performanceMetrics, feedback) {
   this.id = id;
   this.name = name;
   this.performanceMetrics = performanceMetrics; 
-  this.feedback = feedback||[ ];
+  this.feedback = feedback || [];
 }
 
 Employee.prototype.averageScore = function() {
@@ -170,14 +168,16 @@ Employee.prototype.classifyPerformance = function() {
 };
 
 Employee.prototype.addFeedback = function(newFeedback){
+  newFeedback = [];
   if (newFeedback && newFeedback.length > 0) {
-      this.feedback.push(newFeedback);
+  this.feedback.push(newFeedback);
   } else {
-      console.log("Invalid feedback.");
+  console.log("Invalid feedback.");
   }
 };
-const employee = new Employee("O02", "John", [20,40,50,60,70], "Needs improvement")
+
+const employee = new Employee("O02", "John", {metric1: 20, metric2: 40, metric3: 50, metric4: 60, metric5: 70}, ["Needs improvement"]);
+
 console.log(employee.averageScore());
 console.log(employee.classifyPerformance());
-console.log(employee.addFeedback());
-
+employee.addFeedback("Great improvement shown in the last quarter.");
